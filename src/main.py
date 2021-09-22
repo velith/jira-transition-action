@@ -31,7 +31,7 @@ def _get_jira_issue(jira_host, headers, project_key, branch):
   if not issue_id:
     return ""
 
-  issue_url = f"https://{jira_host}/rest/api/2/issue/{issue_id}"
+  issue_url = f"https://{jira_host}/rest/api/2/issue/{project_key.upper()}-{issue_id}"
 
   resp = requests.get(
     issue_url,
@@ -62,6 +62,8 @@ def _transition_jira_issue(jira_host, headers, issue_id, transition_id):
 
 def main(request):
   _check_env_vars([API_TOKEN, PROJECT, HOSTNAME, TRANSITION_ID, BRANCH])
+
+  logging.basicConfig(level=logging.INFO)
 
   jira_host = os.environ.get(HOSTNAME)
   request_headers = {
