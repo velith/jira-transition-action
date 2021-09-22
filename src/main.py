@@ -94,7 +94,7 @@ def main(request):
   if issue:
     issue_id = issue["id"]
     transition_id = os.environ.get(TRANSITION_ID)
-    if _transition_jira_issue(jira_host, request_headers, issue_id, transition_id) != 200:
+    if not _transition_jira_issue(jira_host, request_headers, issue_id, transition_id):
       logging.warn("Transition ID not found, ticket not moved")
   else:
     logging.info("No issue found to transition")
