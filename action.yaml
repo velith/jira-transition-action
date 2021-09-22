@@ -13,4 +13,4 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/velith/jira-transition-action:v1.0.3'
+  image: 'docker://ghcr.io/velith/jira-transition-action:v1.1.0'

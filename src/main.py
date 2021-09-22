@@ -8,7 +8,8 @@ API_TOKEN       = "TOKEN"
 PROJECT         = "JIRA_PROJECT_KEY"
 HOSTNAME        = "JIRA_HOSTNAME"
 TRANSITION_ID   = "JIRA_TRANSITION_ID"
-BRANCH          = "GITHUB_REF"
+BRANCH          = "GITHUB_BRANCH"
+GITHUB_REF      = "GITHUB_REF"
 
 def _check_env_vars(vars):
   for var in vars:
@@ -69,7 +70,7 @@ def _transition_jira_issue(jira_host, headers, issue_id, transition_id):
   return resp.status_code == 200
 
 def main(request):
-  _check_env_vars([API_TOKEN, PROJECT, HOSTNAME, TRANSITION_ID, BRANCH])
+  _check_env_vars([API_TOKEN, PROJECT, HOSTNAME, TRANSITION_ID, GITHUB_REF])
 
   logging.basicConfig(level=logging.INFO)
 
@@ -79,6 +80,10 @@ def main(request):
     "Accept": "application/json",
     "Content-Type": "application/json"
   }
+
+  branch = os.environ.get(BRANCH)
+  if not branch:
+    branch = os.environ.get(GITHUB_REF)
 
   issue = _get_jira_issue(jira_host, 
                           request_headers,

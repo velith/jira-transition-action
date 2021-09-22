@@ -28,6 +28,7 @@ jobs:
           jira_project_key: "MYPROJ"
           jira_hostname: "jira.example.com"
           jira_transition_id: "71" # The ID is unqiue to your Jira instance for the status
+          github_branch: ${{ github.event.pull_request.head.ref }}
         env:
           TOKEN: ${{ secrets.JIRA_TOKEN }}
 ```
@@ -43,6 +44,7 @@ Inputs configure Terraform GitHub Actions to perform different actions.
 * `jira_project_key` - (Required) Project key in Jira.
 * `jira_hostname` - (Required) Hostname of the Jira software.
 * `jira_transition_id` - (Required) ID for status to transition Jira issues during release.
+* `github_branch` - (Optional) The branch to extract issue id from. Defaults to `GITHUB_REF`. Need to be set for pull requests.
 
 ## Outputs
 

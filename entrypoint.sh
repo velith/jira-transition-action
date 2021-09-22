@@ -26,6 +26,10 @@ if [ -z "${TOKEN}" ]; then
   exit 1
 fi
 
+if [ -n "${INPUT_GITHUB_BRANCH}" ]; then
+  export GITHUB_BRANCH="${INPUT_GITHUB_BRANCH}"
+fi
+
 scriptDir=$(dirname ${0})
 output=$(python ${scriptDir}/main.py ${*} 2>&1)
 exitCode=${?}
