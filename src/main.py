@@ -24,6 +24,8 @@ def _extract_issue_id(branch, project_key):
   if result:
     id = result.group(1)
     logging.info(f"Found issue number: {id}")
+  else:
+    logging.warn(f"Could not extract issue number from '{branch}'")
 
   return id
 
