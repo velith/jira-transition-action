@@ -33,9 +33,14 @@ def _get_jira_issue(jira_host, headers, project_key, branch):
 
   issue_url = f"https://{jira_host}/rest/api/2/issue/{project_key.upper()}-{issue_id}"
 
+  params = {
+    "fields": "id"
+  }
+
   resp = requests.get(
     issue_url,
-    headers=headers
+    headers=headers,
+    params=params
   )
 
   if resp.status_code == 200:
