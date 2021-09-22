@@ -23,6 +23,7 @@ def _extract_issue_id(branch, project_key):
 
   if result:
     id = result.group(1)
+    logging.info(f"Found issue number: {id}")
 
   return id
 
