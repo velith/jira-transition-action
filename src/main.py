@@ -19,7 +19,7 @@ def _check_env_vars(vars):
 
 def _extract_issue_id(branch, project_key):
   id = ""
-  issue_pattern = f"^(?!sentry).*(({project_key.lower()}-)?[0-9]{4}).*"
+  issue_pattern = "^(?!sentry).*((%s-)?[0-9]{4}).*"%(project_key.lower())
   result = re.match(issue_pattern, branch.lower()) 
 
   if result:
