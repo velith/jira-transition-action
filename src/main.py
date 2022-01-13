@@ -88,7 +88,7 @@ def main(request):
   issue = _get_jira_issue(jira_host, 
                           request_headers,
                           os.environ.get(PROJECT),
-                          os.environ.get(BRANCH)
+                          branch
                         )
 
   if issue:
