@@ -11,9 +11,12 @@ inputs:
   jira_transition_id:
     description: 'Transition ID for Jira'
     required: true
+  jira_version:
+    description: 'Optionally set a version on the issue after transition'
+    required: false
   github_branch:
     description: 'Branch that might contain issue number'
     required: false
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/velith/jira-transition-action:v1.1.1'
+  image: 'docker://ghcr.io/velith/jira-transition-action:v1.2.0'

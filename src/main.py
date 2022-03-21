@@ -8,6 +8,7 @@ API_TOKEN       = "TOKEN"
 PROJECT         = "JIRA_PROJECT_KEY"
 HOSTNAME        = "JIRA_HOSTNAME"
 TRANSITION_ID   = "JIRA_TRANSITION_ID"
+VERSION         = "JIRA_VERSION"
 BRANCH          = "GITHUB_BRANCH"
 GITHUB_REF      = "GITHUB_REF"
 
@@ -69,6 +70,34 @@ def _transition_jira_issue(jira_host, headers, issue_id, transition_id):
 
   return resp.status_code == 200
 
+def _set_jira_version(jira_host, headers, issue_id):
+  version_name = os.environ.get(VERSION)
+  if not version_name:
+    return False
+
+  url = f"https://{jira_host}/rest/api/2/issue/{issue_id}"
+
+  payload = json.dumps({
+    "fields": {
+      "fixVersions": [
+        {
+          "name": version_name
+        }
+      ]
+    }
+  })
+
+  res = requests.put(url,
+                  headers=headers,
+                  data=payload
+                  )
+
+  if res.status_code not in [200, 204]:
+    logging.warning(f"Failed to update issue {issue_id} with version {version_name}")
+    logging.warning(json.loads(res.text))
+
+  return True
+
 def main(request):
   _check_env_vars([API_TOKEN, PROJECT, HOSTNAME, TRANSITION_ID, GITHUB_REF])
 
@@ -95,6 +124,7 @@ def main(request):
     issue_id = issue["id"]
     transition_id = os.environ.get(TRANSITION_ID)
     _transition_jira_issue(jira_host, request_headers, issue_id, transition_id)
+    _set_jira_version(jira_host, request_headers, issue_id)
   else:
     logging.info("No issue found to transition")
 

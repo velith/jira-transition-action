@@ -30,6 +30,10 @@ if [ -n "${INPUT_GITHUB_BRANCH}" ]; then
   export GITHUB_BRANCH="${INPUT_GITHUB_BRANCH}"
 fi
 
+if [ -n "${INPUT_JIRA_VERSION}" ]; then
+  export JIRA_VERSION="${INPUT_JIRA_VERSION}"
+fi
+
 scriptDir=$(dirname ${0})
 output=$(python ${scriptDir}/main.py ${*} 2>&1)
 exitCode=${?}
