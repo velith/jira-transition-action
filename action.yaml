@@ -1,22 +1,22 @@
-name: 'Jira Release Action'
-description: 'Transition an issue in Jira'
-author: 'velith'
+name: "Jira Release Action"
+description: "Transition an issue in Jira"
+author: "velith"
 inputs:
   jira_hostname:
-    description: 'Hostname for the Jira server'
+    description: "Hostname for the Jira server"
     required: true
   jira_project_key:
-    description: 'Project key for the Jira project'
+    description: "Project key for the Jira project"
     required: true
   jira_transition_id:
-    description: 'Transition ID for Jira'
+    description: "Transition ID for Jira"
     required: true
   jira_version:
-    description: 'Optionally set a version on the issue after transition'
+    description: "Optionally set a version on the issue after transition"
     required: false
   github_branch:
-    description: 'Branch that might contain issue number'
+    description: "Branch that might contain issue number"
     required: false
 runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/velith/jira-transition-action:v1.2.0'
+  using: "docker"
+  image: "docker://ghcr.io/velith/jira-transition-action:v1.2.1"

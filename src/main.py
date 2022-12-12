@@ -51,6 +51,7 @@ def _get_jira_issue(jira_host, headers, project_key, branch):
   if resp.status_code == 200:
     return resp.json()
   else:
+    logging.warning(f"Could not find issue from Jira server: {resp.json()}")
     return ""
 
 def _transition_jira_issue(jira_host, headers, issue_id, transition_id): 
